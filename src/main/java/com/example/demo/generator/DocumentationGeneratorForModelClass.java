@@ -1,14 +1,3 @@
-/**
- * Copyright(c)2001-2018 First National Bank of Omaha
- * 1620 Dodge Street Omaha, NE 68197, USA
- * All rights reserved.
- *
- * This software is the confidential and proprietary information of
- * First National Bank ("Confidential Information"). You shall not
- * disclose such Confidential Information and shall use it only in
- * accordance with the terms of the license agreement you entered into
- * with First National Bank
- */
 package com.example.demo.generator;
 
 import java.io.BufferedReader;
@@ -18,7 +7,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * @author First National Bank of Omaha
  * @author Venkatesh.Kandula
  *
  * @version 1.0
