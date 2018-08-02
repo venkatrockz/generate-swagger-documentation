@@ -1,0 +1,7 @@
+private String associateId;
+private String associateName;
+private String associateAddress;
+private String associateJobCode;
+private String associateJobFamily;
+private String associateAddress;
+private String isEligibleForBenefits;
