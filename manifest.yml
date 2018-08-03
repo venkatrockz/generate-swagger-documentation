@@ -1,0 +1,5 @@
+---
+applications:
+- name: doc-generator
+  path: ./target/doc-generator-0.0.1-SNAPSHOT.jar
+

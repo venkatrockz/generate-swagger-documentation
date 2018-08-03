@@ -1,14 +1,9 @@
 package com.example.demo.generator;
 
-import com.example.demo.InputType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 /**
  * @author Venkatesh.Kandula
