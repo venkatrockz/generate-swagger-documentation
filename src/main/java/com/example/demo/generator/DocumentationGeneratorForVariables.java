@@ -1,10 +1,12 @@
 package com.example.demo.generator;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import org.springframework.stereotype.Component;
+
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * @author Venkatesh.Kandula
@@ -13,33 +15,39 @@ import java.util.regex.Pattern;
  *          Create Date: Aug 02,2018
  */
 
+@Component
 public class DocumentationGeneratorForVariables {
 
-    public static void main(String[] args) {
-        try {
-            FileReader reader = new FileReader("C:/MyWorks/src/main/resources/source/variables");
-            BufferedReader bufferedReader = new BufferedReader(reader);
+    public String generateSwaggerDocumentation(String variable){
 
-            String line;
+        StringBuilder output = new StringBuilder();
+        String[] variables = variable.split(",");
+        List<String> sentences = generateSentence(variables);
+        for(int i=0; i< variables.length; i++){
 
-            while ((line = bufferedReader.readLine()) != null) {
-                System.out.println(generateSwaggerDocumentation(line));
-                System.out.println("private String "+line+";");
-            }
-            reader.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
+            output.append(getSwaggerAnnotation(sentences.get(i)));
+            output.append("\n");
+            output.append("private String " + variables[i] +";");
+            output.append("\n");
         }
+        return output.toString();
     }
 
-    public static String generateSwaggerDocumentation(String variable){
+    private List<String> generateSentence(String[] variables) {
 
-        String sentence = convertVariableNameToSentence(variable);
+        return Arrays.asList(variables)
+                .stream()
+                .map(this :: convertVariableNameToSentence)
+                .map(this :: formatSentence)
+                .collect(Collectors.toList());
+    }
+
+    private String getSwaggerAnnotation(String sentence) {
+
         return "@ApiModelProperty(name = \"" + sentence + "\")";
     }
 
-    public static String convertVariableNameToSentence(String variable){
+    private String convertVariableNameToSentence(String variable){
 
         StringBuilder out = new StringBuilder(variable);
         Pattern p = Pattern.compile("[A-Z]");
@@ -51,10 +59,10 @@ public class DocumentationGeneratorForVariables {
                 extraFeed++;
             }
         }
-        return formatSentence(out);
+        return out.toString();
     }
 
-    private static String formatSentence(StringBuilder out) {
+    private String formatSentence(String out) {
 
         String firstChar = out.substring(0,1).toUpperCase();
         return firstChar.concat(out.substring(1).toLowerCase());
