@@ -4,4 +4,4 @@ private String associateAddress;
 private String associateJobCode;
 private String associateJobFamily;
 private String associateAddress;
-private String isEligibleForBenefits;
+private Boolean isEligibleForBenefits;

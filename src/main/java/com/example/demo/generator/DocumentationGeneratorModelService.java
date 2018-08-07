@@ -22,14 +22,17 @@ public class DocumentationGeneratorModelService {
         StringBuilder output = new StringBuilder();
         String[] modelVariables = variable.split("\n");
         String[] updatedVariables = modelVariables;
+        String[] types = new String[modelVariables.length];
         for(int j=0; j<modelVariables.length; j++){
-            updatedVariables[j] = modelVariables[j].replace(";","").split(" ")[2];
+            String[] splitVariables = modelVariables[j].replace(";","").split(" ");
+            types[j] = splitVariables[1];
+            updatedVariables[j] = splitVariables[2];
         }
         List<String> sentences = helper.generateSentence(modelVariables);
         for (int i = 0; i < modelVariables.length; i++) {
 
             output.append(helper.getSwaggerAnnotation(sentences.get(i))+"\n");
-            output.append("private String " + modelVariables[i] + ";"+"\n");
+            output.append("private " + types[i] +" " + modelVariables[i] + ";"+"\n");
         }
         return output.toString();
     }
